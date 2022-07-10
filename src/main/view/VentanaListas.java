@@ -9,10 +9,11 @@ import java.util.List;
 
 public class VentanaListas extends JFrame implements ActionListener {
 
-    List<String> usuarios = new ArrayList<>();
-    JTextField uTextField;
-    JButton agregarUsuario;
-    JLabel usuarioLabel;
+    private List<String> usuarios = new ArrayList<>();
+    private JTextField uTextField;
+    private JButton agregarUsuario;
+    private JButton botonBack;
+    private JLabel usuarioLabel;
     DefaultListModel contenidoJlist;
 
     JList listaGraficaUsuarios;
@@ -22,20 +23,23 @@ public class VentanaListas extends JFrame implements ActionListener {
         setSize(200, 200);
         setLocationRelativeTo(null);
 
-        usuarioLabel = new JLabel("Escribe un nombre de user");
+        usuarioLabel = new JLabel("Escriba un nombre de usuario");
         uTextField = new JTextField(5);
         agregarUsuario = new JButton("Agregar usuario");
+        botonBack = new JButton("Volver");
         contenidoJlist = new DefaultListModel();
         var listaGraficaUsuarios = new JList(contenidoJlist);
 
         add(usuarioLabel);
         add(uTextField);
         add(agregarUsuario);
+        add(botonBack);
         add(listaGraficaUsuarios);
 
         setLayout(new FlowLayout());
 
         agregarUsuario.addActionListener(this);
+        botonBack.addActionListener(this);
 
     }
     @Override
@@ -50,6 +54,10 @@ public class VentanaListas extends JFrame implements ActionListener {
                 // Se agrega a elemento grafico (JList)
                 contenidoJlist.addElement(nombre);
             }
+
+        } else if (e.getSource() == botonBack) {
+            dispose();
+            new VentanaLobby().setVisible(true);
         }
     }
 }
