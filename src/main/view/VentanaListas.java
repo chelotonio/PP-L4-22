@@ -9,7 +9,7 @@ import java.util.List;
 
 public class VentanaListas extends JFrame implements ActionListener {
 
-    private List<String> usuarios = new ArrayList<>();
+    List<String> usuarios = new ArrayList<>();
     private JTextField uTextField;
     private JButton agregarUsuario;
     private JButton botonBack;
