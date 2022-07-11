@@ -57,6 +57,10 @@ public class VentanaListas extends JFrame implements ActionListener {
 
         } else if (e.getSource() == botonBack) {
             dispose();
+            //this.setVisible(false);
+            for (int i = 0; i < usuarios.size(); i++) {
+                System.out.println("alo");
+            }
             new VentanaLobby().setVisible(true);
         }
     }

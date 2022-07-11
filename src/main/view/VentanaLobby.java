@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 public class VentanaLobby extends JFrame implements ActionListener {
     private JButton boton1;
     private JButton boton2;
+    private JLabel lobbyLabel;
     public VentanaLobby() {
 
         // Se establecen las disposiciones y componentes básicos de una ventana.
@@ -17,9 +18,11 @@ public class VentanaLobby extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         // Se genera el boton y el texto que presenta.
-        boton1 = new JButton("Presionar boton 1");
-        boton2 = new JButton("Presionar boton 2");
+        boton1 = new JButton("Jugar");
+        boton2 = new JButton("Registrar jugadores");
+        lobbyLabel = new JLabel("¡Bienvenido a Dobble!");
 
+        add(lobbyLabel);
         // Se agrega el botón a la ventana y se configura su disposición.
         add(boton1);
         boton1.setSize(200, 300);
