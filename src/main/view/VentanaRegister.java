@@ -5,10 +5,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 
-public class VentanaListas extends JFrame implements ActionListener {
+/**
+ * Clase VentanaRegister
+ * Clase que representa la ventana desde donde se pueden registrar los usuarios que iniciarán una partida.
+ * @author Marcelo Vásquez
+ * @version 0.1, 2022/07/11
+ */
 
+public class VentanaRegister extends JFrame implements ActionListener {
+
+    // Atributos de la clase.
     ArrayList<String> usuarios = new ArrayList<>();
     private JTextField uTextField;
     private JButton agregarUsuario;
@@ -18,8 +25,10 @@ public class VentanaListas extends JFrame implements ActionListener {
 
     JList listaGraficaUsuarios;
 
-    public VentanaListas() {
+    // Métodos de la clase.
+    public VentanaRegister() {
 
+        // Se establecen las disposiciones y componentes básicos de una ventana.
         super("Ventana de listas");
         setSize(200, 200);
         setLocationRelativeTo(null);
@@ -45,7 +54,7 @@ public class VentanaListas extends JFrame implements ActionListener {
     }
 
     // Constructor que recibe una lista de datos y la mantiene.
-    public VentanaListas(ArrayList<String> lista) {
+    public VentanaRegister(ArrayList<String> lista) {
 
 
         super("Ventana de listas");
@@ -70,7 +79,13 @@ public class VentanaListas extends JFrame implements ActionListener {
         agregarUsuario.addActionListener(this);
         botonBack.addActionListener(this);
 
+        // Se repilica la lista ingresada por parametro a la lista vacía generada por la ventana.
         this.usuarios = lista;
+
+        // Se actualiza la lista gráfica con los usuarios ya ingresados anteriormente.
+        for(int i = 0; i < usuarios.size(); i++) {
+            contenidoJlist.addElement(usuarios.get(i));
+        }
 
     }
     @Override

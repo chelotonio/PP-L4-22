@@ -1,19 +1,30 @@
 package main.view;
 
+import main.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
+
+/**
+ * Clase VentanaLobby
+ * Clase que representa la ventana principal desde la cual el usuario puede configurar e iniciar su partida.
+ * @author Marcelo Vásquez
+ * @version 0.1, 2022/07/11
+ */
 
 public class VentanaLobby extends JFrame implements ActionListener {
 
+    // Atributos de la clase.
     ArrayList<String> usuarios = new ArrayList<>();
     private JButton boton1;
     private JButton boton2;
     private JButton boton3;
     private JLabel lobbyLabel;
+
+    // Métodos de la clase.
     public VentanaLobby() {
 
         // Se establecen las disposiciones y componentes básicos de una ventana.
@@ -89,10 +100,11 @@ public class VentanaLobby extends JFrame implements ActionListener {
                 String message = "Hola, has presionado el primer boton";
                 JOptionPane.showMessageDialog(this, message);
             } else if(evento.getSource() == boton2) {
-                new VentanaConfigurar().setVisible(true);
+                dispose();
+                new VentanaConfigurar(usuarios).setVisible(true);
             } else if(evento.getSource() == boton3) {
-                this.setVisible(false);
-                new VentanaListas(usuarios).setVisible(true);
+                dispose();
+                new VentanaRegister(usuarios).setVisible(true);
             }
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(this, "Error!");
