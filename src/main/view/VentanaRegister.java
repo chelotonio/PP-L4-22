@@ -91,9 +91,6 @@ public class VentanaRegister extends JFrame implements ActionListener {
 
             } else if (e.getSource() == botonBack) {
                 dispose();
-                long finEjecución = System.nanoTime();
-                tiempo = (finEjecución - inicioEjecucion) * Math.pow(10, -9);
-                System.out.println(tiempo);
                 new VentanaLobby(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
             }
         } catch (Exception exception) {

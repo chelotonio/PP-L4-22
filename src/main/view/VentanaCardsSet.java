@@ -9,8 +9,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
- * Clase VentanaRegister
- * Clase que representa la ventana desde donde se pueden registrar los usuarios que iniciarán una partida.
+ * Clase VentanaCardsSet
+ * Clase que representa la ventana desde donde se puede crear un nuevo set de cartas a partir de la cantidad de elementos y el número de cartas.
  * @author Marcelo Vásquez
  * @version 0.1, 2022/07/11
  */
@@ -91,19 +91,19 @@ public class VentanaCardsSet extends JFrame implements ActionListener {
 
                 // Se genera una lista de elementos para construir un cardsSet.
                 ArrayList<String> elementsAbecedary = new ArrayList<>();
-                elementsAbecedary.add("A");
-                elementsAbecedary.add("B");
-                elementsAbecedary.add("C");
-                elementsAbecedary.add("D");
-                elementsAbecedary.add("E");
-                elementsAbecedary.add("F");
-                elementsAbecedary.add("G");
-                elementsAbecedary.add("H");
-                elementsAbecedary.add("I");
-                elementsAbecedary.add("J");
-                elementsAbecedary.add("K");
-                elementsAbecedary.add("L");
-                elementsAbecedary.add("M");
+                elementsAbecedary.add("a");
+                elementsAbecedary.add("b");
+                elementsAbecedary.add("c");
+                elementsAbecedary.add("d");
+                elementsAbecedary.add("e");
+                elementsAbecedary.add("f");
+                elementsAbecedary.add("g");
+                elementsAbecedary.add("h");
+                elementsAbecedary.add("i");
+                elementsAbecedary.add("j");
+                elementsAbecedary.add("k");
+                elementsAbecedary.add("l");
+                elementsAbecedary.add("m");
 
                 cardsSet = dobble.CardsSet(elementsAbecedary, nE, mC, 1234);
                 System.out.println(cardsSet);
@@ -116,7 +116,6 @@ public class VentanaCardsSet extends JFrame implements ActionListener {
 
             } else if (e.getSource() == botonBack) {
                 dispose();
-                System.out.println(cardsSet);
                 new VentanaConfigurar(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
             }
         } catch (Exception exception) {

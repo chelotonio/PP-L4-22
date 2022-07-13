@@ -50,8 +50,15 @@ public class Dobble {
         return cardsSet;
     }
 
-    public String enComun() {
+    public String enComun(ArrayList<String> c1, ArrayList<String> c2) {
 
+        for(int i = 0; i < c1.size(); i++) {
+            for (int j = 0; j < c1.size(); j++) {
+                if (c1.get(i) == c2.get(j)) {
+                    return c1.get(i);
+                }
+            }
+        }
         return "s";
     }
 

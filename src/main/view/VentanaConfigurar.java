@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  * Clase VentanaConfigurar
- * Clase que
+ * Clase que permite ingresar la cantidad de jugadores y da la opción a crear un nuevo set de cartas para jugar.
  * @author Marcelo Vásquez
  * @version 0.1, 2022/07/11
  */

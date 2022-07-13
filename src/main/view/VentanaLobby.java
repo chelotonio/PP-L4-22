@@ -35,7 +35,7 @@ public class VentanaLobby extends JFrame implements ActionListener {
     public VentanaLobby(ArrayList<String> lista, ArrayList<ArrayList> baraja, Integer cantidad, Integer numTurn, Double t1, Double t2) {
 
         // Se establecen las disposiciones y componentes básicos de una ventana.
-        super("Ventana Principal");
+        super("Menú Principal");
         setSize(200, 200);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -82,8 +82,6 @@ public class VentanaLobby extends JFrame implements ActionListener {
                 new VentanaConfigurar(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
             } else if(evento.getSource() == boton3) {
                 dispose();
-                System.out.println(cardsSet);
-                System.out.println(playerAmount);
                 new VentanaRegister(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
             }
         } catch (Exception exception) {

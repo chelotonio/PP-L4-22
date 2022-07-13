@@ -37,7 +37,7 @@ public class TurnSet extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
 
         label1 = new JLabel("¡Correcto!");
-        label2 = new JLabel("Es el turno de");
+        label2 = new JLabel("Es el turno del siguiente jugador");
         sgteTurno = new JButton("Comenzar turno");
 
         add(label1);

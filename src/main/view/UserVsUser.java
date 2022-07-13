@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
- * Clase VentanaRegister
+ * Clase UserVsUser
  * Clase que representa la ventana desde donde se pueden registrar los usuarios que iniciarán una partida.
  * @author Marcelo Vásquez
  * @version 0.1, 2022/07/11
@@ -23,6 +23,8 @@ public class UserVsUser extends JFrame implements ActionListener {
     Integer playerAmount = 0;
     Integer turn = 0;
     Dobble dobble = new Dobble();
+    ArrayList<String> barajaString;
+    String elementoCorrecto;
     double tiempoJ1 = 0;
     double tiempoJ2 = 0;
     Integer whoTurn = 1;
@@ -38,7 +40,7 @@ public class UserVsUser extends JFrame implements ActionListener {
     // Métodos de la clase.
     public UserVsUser(ArrayList<String> lista, ArrayList<ArrayList> baraja, Integer cantidad, Integer numTurn, Double t1, Double t2) {
 
-        super("Dobble Game");
+        super("User vs User");
         setSize(400, 400);
         setLocationRelativeTo(null);
 
@@ -52,27 +54,30 @@ public class UserVsUser extends JFrame implements ActionListener {
         var listaGraficaUsuarios = new JList(contenidoJl);
         var listaGraficaParCartas = new JList(muestraParC);
 
-        ArrayList<String> barajaString;
-
         this.cardsSet = baraja;
         this.turn = numTurn;
         this.usuarios = lista;
         this.playerAmount = cantidad;
         this.tiempoJ1 = t1;
         this.tiempoJ2 = t2;
-        /*
+        //
         barajaString = dobble.cardsSetToString(cardsSet);
         // Se randomiza la carta a escoger con un valor en el rango de las cartas.
-        Integer n = cardsSet.size();
-        int a = (int) Math.round(Math.random()*(n+1));
-        int b = (int) Math.round(Math.random()*(n+1));
+        Integer n = cardsSet.size() - 2;
+        Integer a = (int) Math.round(Math.random()*(n-0+1));
+        Integer b = (int) Math.round(Math.random()*(n-0+1));
+
+        ArrayList<String> cc1 = cardsSet.get(a);
+        ArrayList<String> cc2 = cardsSet.get(b);
 
         String c1 = barajaString.get(a);
         String c2 = barajaString.get(b);
 
+        elementoCorrecto = dobble.enComun(cc1, cc2);
+
         muestraParC.addElement(c1);
         muestraParC.addElement(c2);
-        */
+        //
         if (turn % 2 == 1) {
             contenidoJl.addElement(usuarios.get(0));
         } else {
@@ -81,7 +86,7 @@ public class UserVsUser extends JFrame implements ActionListener {
 
         add(turnL);
         add(listaGraficaUsuarios);
-        //add(listaGraficaParCartas);
+        add(listaGraficaParCartas);
         add(usuarioLabel);
         add(eComun);
         add(ingresarElemento);
@@ -96,16 +101,14 @@ public class UserVsUser extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
             if (e.getSource() == ingresarElemento) {
-                var nombre = eComun.getText();
-                // if (eComun.equals(elementoComunCorrecto)) .
-                if (usuarios.contains(nombre)) {
+                var valorIngresado = eComun.getText();
+                // if (valorIngresado.equals(elementoCorrecto))
+                if (valorIngresado.equals(elementoCorrecto)) {
                     long finEjecución = System.nanoTime();
                     if(turn % 2 == 1) {
                         tiempoJ1 = tiempoJ1 + (finEjecución - inicioEjecucion) * Math.pow(10, -9);
-                        System.out.println(tiempoJ1);
                     } else {
                         tiempoJ2 = tiempoJ2 + (finEjecución - inicioEjecucion) * Math.pow(10, -9);
-                        System.out.println(tiempoJ2);
                     }
                     System.out.println(turn);
                     // Si se completaron todos los turnos.

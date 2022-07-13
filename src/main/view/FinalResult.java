@@ -69,7 +69,7 @@ public class FinalResult extends JFrame implements ActionListener {
         try {
             if (e.getSource() == backMP) {
                 dispose();
-                new VentanaLobby(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
+                new VentanaLobby(usuarios, cardsSet, playerAmount, 1, 0.0, 0.0).setVisible(true);
             }
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(this, "Error!");
