@@ -54,8 +54,6 @@ public class TurnSet extends JFrame implements ActionListener {
         this.turn = numTurn;
         this.tiempoJ1 = t1;
         this.tiempoJ2 = t2;
-        this.tiempoJ1 = t1;
-        this.tiempoJ2 = t2;
 
     }
     @Override

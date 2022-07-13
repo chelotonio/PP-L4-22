@@ -19,6 +19,7 @@ public class Main {
         Card card = new Card(arreglo);
 
         ArrayList<ArrayList> cardsSetPrueba;
+        ArrayList<String> stringCardsSet;
 
         // Generación de listas de elementos:
         ArrayList<String> elementsNumbers = new ArrayList<>();
@@ -37,8 +38,10 @@ public class Main {
         elementsNumbers.add("13");
 
         cardsSetPrueba = dobble.CardsSet(elementsNumbers, 3, -1, 0);
+        stringCardsSet = dobble.cardsSetToString(cardsSetPrueba);
 
         System.out.println(cardsSetPrueba);
+        System.out.println(stringCardsSet);
 
         // Lista global que almacena los usuarios registrados.
         ArrayList<String> usuarios = new ArrayList<>();

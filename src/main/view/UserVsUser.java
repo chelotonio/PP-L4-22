@@ -1,5 +1,7 @@
 package main.view;
 
+import main.Dobble;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,6 +22,7 @@ public class UserVsUser extends JFrame implements ActionListener {
     ArrayList<ArrayList> cardsSet;
     Integer playerAmount = 0;
     Integer turn = 0;
+    Dobble dobble = new Dobble();
     double tiempoJ1 = 0;
     double tiempoJ2 = 0;
     Integer whoTurn = 1;
@@ -29,9 +32,8 @@ public class UserVsUser extends JFrame implements ActionListener {
     private JButton botonBack;
     private JLabel usuarioLabel;
     private JLabel turnL;
-    DefaultListModel contenidoJlist;
-
-    JList listaGraficaUsuarios;
+    DefaultListModel contenidoJl;
+    DefaultListModel muestraParC;
 
     // Métodos de la clase.
     public UserVsUser(ArrayList<String> lista, ArrayList<ArrayList> baraja, Integer cantidad, Integer numTurn, Double t1, Double t2) {
@@ -45,38 +47,51 @@ public class UserVsUser extends JFrame implements ActionListener {
         eComun = new JTextField(5);
         ingresarElemento = new JButton("Ingresar");
         botonBack = new JButton("Volver");
-        contenidoJlist = new DefaultListModel();
-        var listaGraficaUsuarios = new JList(contenidoJlist);
+        contenidoJl = new DefaultListModel();
+        muestraParC = new DefaultListModel();
+        var listaGraficaUsuarios = new JList(contenidoJl);
+        var listaGraficaParCartas = new JList(muestraParC);
+
+        ArrayList<String> barajaString;
+
+        this.cardsSet = baraja;
+        this.turn = numTurn;
+        this.usuarios = lista;
+        this.playerAmount = cantidad;
+        this.tiempoJ1 = t1;
+        this.tiempoJ2 = t2;
+        /*
+        barajaString = dobble.cardsSetToString(cardsSet);
+        // Se randomiza la carta a escoger con un valor en el rango de las cartas.
+        Integer n = cardsSet.size();
+        int a = (int) Math.round(Math.random()*(n+1));
+        int b = (int) Math.round(Math.random()*(n+1));
+
+        String c1 = barajaString.get(a);
+        String c2 = barajaString.get(b);
+
+        muestraParC.addElement(c1);
+        muestraParC.addElement(c2);
+        */
+        if (turn % 2 == 1) {
+            contenidoJl.addElement(usuarios.get(0));
+        } else {
+            contenidoJl.addElement(usuarios.get(1));
+        }
 
         add(turnL);
         add(listaGraficaUsuarios);
+        //add(listaGraficaParCartas);
         add(usuarioLabel);
         add(eComun);
         add(ingresarElemento);
-        add(botonBack);
 
         setLayout(new FlowLayout());
 
         ingresarElemento.addActionListener(this);
         botonBack.addActionListener(this);
 
-        // Se repilica la lista ingresada por parametro a la lista vacía generada por la ventana.
-        this.usuarios = lista;
-
-        // Se actualiza la lista gráfica con los usuarios ya ingresados anteriormente.
-        for(int i = 0; i < usuarios.size(); i++) {
-            contenidoJlist.addElement(usuarios.get(i));
-        }
-
-        this.usuarios = lista;
-        this.cardsSet = baraja;
-        this.playerAmount = cantidad;
-        this.turn = numTurn;
-        this.tiempoJ1 = t1;
-        this.tiempoJ2 = t2;
-
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         try {

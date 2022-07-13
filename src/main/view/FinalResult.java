@@ -25,6 +25,7 @@ public class FinalResult extends JFrame implements ActionListener {
     private JButton backMP;
     private JLabel label1;
     private JLabel label2;
+    DefaultListModel contenidoJlist;
 
     // Métodos de la clase.
     public FinalResult(ArrayList<String> lista, ArrayList<ArrayList> baraja, Integer cantidad, Integer numTurn, Double t1, Double t2) {
@@ -35,10 +36,23 @@ public class FinalResult extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
 
         label1 = new JLabel("¡Partida Finalizada!");
-        label2 = new JLabel("¡tantan ha ganado la partida!");
+        label2 = new JLabel("ha ganado la partida!");
         backMP = new JButton("Volver al menú principal");
+        contenidoJlist = new DefaultListModel();
+        var listaGraficaUsuarios = new JList(contenidoJlist);
+
+        this.usuarios = lista;
+        this.tiempoJ1 = t1;
+        this.tiempoJ2 = t2;
+
+        if(tiempoJ1 < tiempoJ2) {
+            contenidoJlist.addElement(usuarios.get(0));
+        } else {
+            contenidoJlist.addElement(usuarios.get(1));
+        }
 
         add(label1);
+        add(listaGraficaUsuarios);
         add(label2);
         add(backMP);
 
@@ -46,13 +60,9 @@ public class FinalResult extends JFrame implements ActionListener {
 
         backMP.addActionListener(this);
 
-        this.usuarios = lista;
         this.cardsSet = baraja;
         this.playerAmount = cantidad;
         this.turn = numTurn;
-        this.tiempoJ1 = t1;
-        this.tiempoJ2 = t2;
-
     }
     @Override
     public void actionPerformed(ActionEvent e) {

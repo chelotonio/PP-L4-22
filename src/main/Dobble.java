@@ -50,6 +50,24 @@ public class Dobble {
         return cardsSet;
     }
 
+    public String enComun() {
 
+        return "s";
+    }
+
+    public ArrayList<String> cardsSetToString(ArrayList<ArrayList> cardsSet) {
+
+        ArrayList<String> stringCardsSet = new ArrayList<>();
+
+        for (int i = 0; i < cardsSet.size(); i++) {
+            carta = cardsSet.get(i);
+            String str = "";
+            for (String elemento : carta) {
+                str+= elemento+",";
+            }
+            stringCardsSet.add(str);
+        }
+        return stringCardsSet;
+    }
 
 }
