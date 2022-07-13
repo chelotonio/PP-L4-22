@@ -16,7 +16,9 @@ import java.util.ArrayList;
 public class VentanaRegister extends JFrame implements ActionListener {
 
     // Atributos de la clase.
-    ArrayList<String> usuarios = new ArrayList<>();
+    ArrayList<String> usuarios;
+    ArrayList<ArrayList> cardsSet;
+    Integer playerAmount = 0;
     private JTextField uTextField;
     private JButton agregarUsuario;
     private JButton botonBack;
@@ -26,9 +28,9 @@ public class VentanaRegister extends JFrame implements ActionListener {
     JList listaGraficaUsuarios;
 
     // Métodos de la clase.
+
     public VentanaRegister() {
 
-        // Se establecen las disposiciones y componentes básicos de una ventana.
         super("Ventana de listas");
         setSize(200, 200);
         setLocationRelativeTo(null);
@@ -51,11 +53,13 @@ public class VentanaRegister extends JFrame implements ActionListener {
         agregarUsuario.addActionListener(this);
         botonBack.addActionListener(this);
 
+        // Se actualiza la lista gráfica con los usuarios ya ingresados anteriormente.
+        for(int i = 0; i < usuarios.size(); i++) {
+            contenidoJlist.addElement(usuarios.get(i));
+        }
+
     }
-
-    // Constructor que recibe una lista de datos y la mantiene.
-    public VentanaRegister(ArrayList<String> lista) {
-
+    public VentanaRegister(ArrayList<String> lista, ArrayList<ArrayList> baraja) {
 
         super("Ventana de listas");
         setSize(200, 200);
@@ -87,6 +91,8 @@ public class VentanaRegister extends JFrame implements ActionListener {
             contenidoJlist.addElement(usuarios.get(i));
         }
 
+        this.usuarios = lista;
+        this.cardsSet = baraja;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -105,7 +111,7 @@ public class VentanaRegister extends JFrame implements ActionListener {
 
             } else if (e.getSource() == botonBack) {
                 dispose();
-                new VentanaLobby(usuarios).setVisible(true);
+                new VentanaLobby(usuarios, cardsSet).setVisible(true);
             }
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(this, "Error!");

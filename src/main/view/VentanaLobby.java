@@ -18,47 +18,16 @@ import java.util.ArrayList;
 public class VentanaLobby extends JFrame implements ActionListener {
 
     // Atributos de la clase.
-    ArrayList<String> usuarios = new ArrayList<>();
+    ArrayList<String> usuarios;
+    ArrayList<ArrayList> cardsSet;
+    Integer playerAmount = 0;
     private JButton boton1;
     private JButton boton2;
     private JButton boton3;
     private JLabel lobbyLabel;
 
     // Métodos de la clase.
-    public VentanaLobby() {
-
-        // Se establecen las disposiciones y componentes básicos de una ventana.
-        super("Ventana Principal");
-        setSize(200, 200);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        // Se genera el boton y el texto que presenta.
-        boton1 = new JButton("Jugar");
-        boton2 = new JButton("Configurar nueva partida");
-        boton3 = new JButton("Registrar jugadores");
-        lobbyLabel = new JLabel("¡Bienvenido a Dobble!");
-
-        add(lobbyLabel);
-        // Se agrega el botón a la ventana y se configura su disposición.
-        add(boton1);
-        boton1.setSize(200, 300);
-        add(boton2);
-        boton2.setSize(200, 300);
-        add(boton3);
-        boton3.setSize(200, 300);
-
-        // Se aplica un corrector de disposición de los elementos de la ventana.
-        setLayout(new FlowLayout());
-
-        // Se activa y dispone el botón para recibir una acción.
-        boton1.addActionListener(this);
-        boton2.addActionListener(this);
-        boton3.addActionListener(this);
-    }
-
-    // Constructor que recibe una lista de datos y la mantiene.
-    public VentanaLobby(ArrayList<String> lista) {
+    public VentanaLobby(ArrayList<String> lista, ArrayList<ArrayList> baraja) {
 
         // Se establecen las disposiciones y componentes básicos de una ventana.
         super("Ventana Principal");
@@ -90,6 +59,7 @@ public class VentanaLobby extends JFrame implements ActionListener {
         boton3.addActionListener(this);
 
         this.usuarios = lista;
+        this.cardsSet = baraja;
 
     }
 
@@ -101,10 +71,10 @@ public class VentanaLobby extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, message);
             } else if(evento.getSource() == boton2) {
                 dispose();
-                new VentanaConfigurar(usuarios).setVisible(true);
+                new VentanaConfigurar(usuarios, cardsSet).setVisible(true);
             } else if(evento.getSource() == boton3) {
                 dispose();
-                new VentanaRegister(usuarios).setVisible(true);
+                new VentanaRegister(usuarios, cardsSet).setVisible(true);
             }
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(this, "Error!");
