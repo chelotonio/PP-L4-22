@@ -19,7 +19,7 @@ public class UserVsUser extends JFrame implements ActionListener {
     ArrayList<String> usuarios;
     ArrayList<ArrayList> cardsSet;
     Integer playerAmount = 0;
-    ArrayList<Double> times = new ArrayList<>();
+    Integer turn = 0;
     double tiempoJ1 = 0;
     double tiempoJ2 = 0;
     Integer whoTurn = 1;
@@ -28,27 +28,27 @@ public class UserVsUser extends JFrame implements ActionListener {
     private JButton ingresarElemento;
     private JButton botonBack;
     private JLabel usuarioLabel;
-    private JLabel turn;
+    private JLabel turnL;
     DefaultListModel contenidoJlist;
 
     JList listaGraficaUsuarios;
 
     // Métodos de la clase.
-    public UserVsUser(ArrayList<String> lista, ArrayList<ArrayList> baraja, Integer cantidad) {
+    public UserVsUser(ArrayList<String> lista, ArrayList<ArrayList> baraja, Integer cantidad, Integer numTurn, Double t1, Double t2) {
 
         super("Dobble Game");
         setSize(400, 400);
         setLocationRelativeTo(null);
 
         usuarioLabel = new JLabel("Ingrese el elemento en común entre las dos cartas:");
-        turn = new JLabel("Es tu turno,");
+        turnL = new JLabel("Es tu turno,");
         eComun = new JTextField(5);
         ingresarElemento = new JButton("Ingresar");
         botonBack = new JButton("Volver");
         contenidoJlist = new DefaultListModel();
         var listaGraficaUsuarios = new JList(contenidoJlist);
 
-        add(turn);
+        add(turnL);
         add(listaGraficaUsuarios);
         add(usuarioLabel);
         add(eComun);
@@ -71,10 +71,9 @@ public class UserVsUser extends JFrame implements ActionListener {
         this.usuarios = lista;
         this.cardsSet = baraja;
         this.playerAmount = cantidad;
-        // this.tiempoJ1 = times.;
-        // this.tiempoJ2 = t2;
-        // this.times = tiempos;
-        // this.whoTurn = turn;
+        this.turn = numTurn;
+        this.tiempoJ1 = t1;
+        this.tiempoJ2 = t2;
 
     }
 
@@ -86,26 +85,31 @@ public class UserVsUser extends JFrame implements ActionListener {
                 // if (eComun.equals(elementoComunCorrecto)) .
                 if (usuarios.contains(nombre)) {
                     long finEjecución = System.nanoTime();
-                    if(whoTurn == 1) {
+                    if(turn % 2 == 1) {
                         tiempoJ1 = tiempoJ1 + (finEjecución - inicioEjecucion) * Math.pow(10, -9);
                         System.out.println(tiempoJ1);
                     } else {
                         tiempoJ2 = tiempoJ2 + (finEjecución - inicioEjecucion) * Math.pow(10, -9);
                         System.out.println(tiempoJ2);
                     }
+                    System.out.println(turn);
                     // Si se completaron todos los turnos.
-                    //if (Turns) {
-
-                    //}
-                    dispose();
-                    new TurnSet(usuarios, cardsSet, playerAmount).setVisible(true);
+                    if (turn == playerAmount * 3) {
+                        System.out.println("tiempo total j1:"+tiempoJ1);
+                        System.out.println("tiempo total j2:"+tiempoJ2);
+                        dispose();
+                        new FinalResult(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
+                    } else {
+                        dispose();
+                        new TurnSet(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(this, "El elemento ingresado no es correcto, intente nuevamente");
                 }
 
             } else if (e.getSource() == botonBack) {
                 dispose();
-                new VentanaLobby(usuarios, cardsSet, playerAmount).setVisible(true);
+                new VentanaLobby(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
             }
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(this, "Error!");

@@ -21,12 +21,15 @@ public class TurnSet extends JFrame implements ActionListener {
     ArrayList<String> usuarios;
     ArrayList<ArrayList> cardsSet;
     Integer playerAmount = 0;
+    Integer turn = 0;
+    double tiempoJ1 = 0;
+    double tiempoJ2 = 0;
     private JButton sgteTurno;
     private JLabel label1;
     private JLabel label2;
 
     // Métodos de la clase.
-    public TurnSet(ArrayList<String> lista, ArrayList<ArrayList> baraja, Integer cantidad) {
+    public TurnSet(ArrayList<String> lista, ArrayList<ArrayList> baraja, Integer cantidad, Integer numTurn, Double t1, Double t2) {
 
         // Se establecen las disposiciones y componentes básicos de una ventana.
         super("Generación de cardsSet");
@@ -48,6 +51,11 @@ public class TurnSet extends JFrame implements ActionListener {
         this.usuarios = lista;
         this.cardsSet = baraja;
         this.playerAmount = cantidad;
+        this.turn = numTurn;
+        this.tiempoJ1 = t1;
+        this.tiempoJ2 = t2;
+        this.tiempoJ1 = t1;
+        this.tiempoJ2 = t2;
 
     }
     @Override
@@ -55,7 +63,8 @@ public class TurnSet extends JFrame implements ActionListener {
         try {
             if (e.getSource() == sgteTurno) {
                 dispose();
-                new UserVsUser(usuarios, cardsSet, playerAmount).setVisible(true);
+                this.turn = turn + 1;
+                new UserVsUser(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
             }
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(this, "Error!");

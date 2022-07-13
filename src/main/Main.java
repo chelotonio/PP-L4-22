@@ -44,12 +44,12 @@ public class Main {
         ArrayList<String> usuarios = new ArrayList<>();
         ArrayList<ArrayList> cardsSet = new ArrayList<>();
         Integer playerAmount = 0;
-        // Integer t1 = 0;
-        // Integer t2 = 0;
-        // Integer turn = 0;
-        // totalTurns = 3;
+        double tiempoJ1 = 0;
+        double tiempoJ2 = 0;
+        Integer turns = 1;
+        Integer whoTurn = 1;
 
-        new VentanaLobby(usuarios, cardsSet, playerAmount).setVisible(true);
+        new VentanaLobby(usuarios, cardsSet, playerAmount, turns, tiempoJ1, tiempoJ2).setVisible(true);
 
     }
 }

@@ -1,5 +1,6 @@
 package main.view;
 
+import main.Dobble;
 import main.Player;
 
 import javax.swing.*;
@@ -22,14 +23,16 @@ public class VentanaLobby extends JFrame implements ActionListener {
     ArrayList<String> usuarios;
     ArrayList<ArrayList> cardsSet;
     Integer playerAmount = 0;
-    ArrayList<Double> times = new ArrayList<>();
+    Integer turn = 0;
+    double tiempoJ1 = 0;
+    double tiempoJ2 = 0;
     private JButton boton1;
     private JButton boton2;
     private JButton boton3;
     private JLabel lobbyLabel;
 
     // Métodos de la clase.
-    public VentanaLobby(ArrayList<String> lista, ArrayList<ArrayList> baraja, Integer cantidad) {
+    public VentanaLobby(ArrayList<String> lista, ArrayList<ArrayList> baraja, Integer cantidad, Integer numTurn, Double t1, Double t2) {
 
         // Se establecen las disposiciones y componentes básicos de una ventana.
         super("Ventana Principal");
@@ -63,6 +66,9 @@ public class VentanaLobby extends JFrame implements ActionListener {
         this.usuarios = lista;
         this.cardsSet = baraja;
         this.playerAmount = cantidad;
+        this.turn = numTurn;
+        this.tiempoJ1 = t1;
+        this.tiempoJ2 = t2;
     }
 
     @Override
@@ -70,15 +76,15 @@ public class VentanaLobby extends JFrame implements ActionListener {
         try {
             if(evento.getSource() == boton1) {
                 dispose();
-                new UserVsUser(usuarios, cardsSet, playerAmount).setVisible(true);
+                new UserVsUser(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
             } else if(evento.getSource() == boton2) {
                 dispose();
-                new VentanaConfigurar(usuarios, cardsSet, playerAmount).setVisible(true);
+                new VentanaConfigurar(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
             } else if(evento.getSource() == boton3) {
                 dispose();
                 System.out.println(cardsSet);
                 System.out.println(playerAmount);
-                new VentanaRegister(usuarios, cardsSet, playerAmount).setVisible(true);
+                new VentanaRegister(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
             }
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(this, "Error!");

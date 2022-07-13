@@ -19,7 +19,9 @@ public class VentanaRegister extends JFrame implements ActionListener {
     ArrayList<String> usuarios;
     ArrayList<ArrayList> cardsSet;
     Integer playerAmount = 0;
-    ArrayList<Double> times = new ArrayList<>();
+    Integer turn = 0;
+    double tiempoJ1 = 0;
+    double tiempoJ2 = 0;
     double tiempo;
     long inicioEjecucion = System.nanoTime();
     private JTextField uTextField;
@@ -31,7 +33,7 @@ public class VentanaRegister extends JFrame implements ActionListener {
     JList listaGraficaUsuarios;
 
     // Métodos de la clase.
-    public VentanaRegister(ArrayList<String> lista, ArrayList<ArrayList> baraja, Integer cantidad) {
+    public VentanaRegister(ArrayList<String> lista, ArrayList<ArrayList> baraja, Integer cantidad, Integer numTurn, Double t1, Double t2) {
 
         super("Ventana de listas");
         setSize(200, 200);
@@ -66,6 +68,9 @@ public class VentanaRegister extends JFrame implements ActionListener {
         this.usuarios = lista;
         this.cardsSet = baraja;
         this.playerAmount = cantidad;
+        this.turn = numTurn;
+        this.tiempoJ1 = t1;
+        this.tiempoJ2 = t2;
 
     }
 
@@ -89,7 +94,7 @@ public class VentanaRegister extends JFrame implements ActionListener {
                 long finEjecución = System.nanoTime();
                 tiempo = (finEjecución - inicioEjecucion) * Math.pow(10, -9);
                 System.out.println(tiempo);
-                new VentanaLobby(usuarios, cardsSet, playerAmount).setVisible(true);
+                new VentanaLobby(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
             }
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(this, "Error!");
