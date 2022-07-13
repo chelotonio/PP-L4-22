@@ -18,6 +18,7 @@ public class VentanaConfigurar extends JFrame implements ActionListener {
     ArrayList<String> usuarios;
     ArrayList<ArrayList> cardsSet;
     Integer playerAmount = 0;
+    ArrayList<Double> times = new ArrayList<>();
     private JButton boton1;
     private JButton boton3;
     private JButton boton4;

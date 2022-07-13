@@ -1,6 +1,7 @@
 package main;
 
 import main.view.VentanaLobby;
+
 import java.util.ArrayList;
 
 /**
@@ -43,6 +44,10 @@ public class Main {
         ArrayList<String> usuarios = new ArrayList<>();
         ArrayList<ArrayList> cardsSet = new ArrayList<>();
         Integer playerAmount = 0;
+        // Integer t1 = 0;
+        // Integer t2 = 0;
+        // Integer turn = 0;
+        // totalTurns = 3;
 
         new VentanaLobby(usuarios, cardsSet, playerAmount).setVisible(true);
 

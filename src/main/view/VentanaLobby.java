@@ -3,6 +3,7 @@ package main.view;
 import main.Player;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.DefaultMenuLayout;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +22,7 @@ public class VentanaLobby extends JFrame implements ActionListener {
     ArrayList<String> usuarios;
     ArrayList<ArrayList> cardsSet;
     Integer playerAmount = 0;
+    ArrayList<Double> times = new ArrayList<>();
     private JButton boton1;
     private JButton boton2;
     private JButton boton3;
@@ -67,8 +69,8 @@ public class VentanaLobby extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent evento) {
         try {
             if(evento.getSource() == boton1) {
-                String message = "Hola, has presionado el primer boton";
-                JOptionPane.showMessageDialog(this, message);
+                dispose();
+                new UserVsUser(usuarios, cardsSet, playerAmount).setVisible(true);
             } else if(evento.getSource() == boton2) {
                 dispose();
                 new VentanaConfigurar(usuarios, cardsSet, playerAmount).setVisible(true);

@@ -21,8 +21,8 @@ public class VentanaCardsSet extends JFrame implements ActionListener {
     ArrayList<String> usuarios;
     ArrayList<ArrayList> cardsSet;
     Integer playerAmount = 0;
+    ArrayList<Double> times = new ArrayList<>();
     Dobble dobble = new Dobble();
-
     private JTextField numEtf;
     private JTextField maxCtf;
     private JButton crearBaraja;
@@ -69,11 +69,13 @@ public class VentanaCardsSet extends JFrame implements ActionListener {
         this.usuarios = lista;
         this.cardsSet = baraja;
         this.playerAmount = cantidad;
+
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
             if (e.getSource() == crearBaraja) {
+
                 String numE = numEtf.getText();
                 String maxC = maxCtf.getText();
 
