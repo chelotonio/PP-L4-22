@@ -44,7 +44,7 @@ public class Main {
         ArrayList<ArrayList> cardsSet = new ArrayList<>();
         Integer playerAmount = 0;
 
-        new VentanaLobby(usuarios, cardsSet).setVisible(true);
+        new VentanaLobby(usuarios, cardsSet, playerAmount).setVisible(true);
 
     }
 }

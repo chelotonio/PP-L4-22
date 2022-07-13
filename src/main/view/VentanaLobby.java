@@ -27,7 +27,7 @@ public class VentanaLobby extends JFrame implements ActionListener {
     private JLabel lobbyLabel;
 
     // Métodos de la clase.
-    public VentanaLobby(ArrayList<String> lista, ArrayList<ArrayList> baraja) {
+    public VentanaLobby(ArrayList<String> lista, ArrayList<ArrayList> baraja, Integer cantidad) {
 
         // Se establecen las disposiciones y componentes básicos de una ventana.
         super("Ventana Principal");
@@ -60,7 +60,7 @@ public class VentanaLobby extends JFrame implements ActionListener {
 
         this.usuarios = lista;
         this.cardsSet = baraja;
-
+        this.playerAmount = cantidad;
     }
 
     @Override
@@ -71,10 +71,12 @@ public class VentanaLobby extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, message);
             } else if(evento.getSource() == boton2) {
                 dispose();
-                new VentanaConfigurar(usuarios, cardsSet).setVisible(true);
+                new VentanaConfigurar(usuarios, cardsSet, playerAmount).setVisible(true);
             } else if(evento.getSource() == boton3) {
                 dispose();
-                new VentanaRegister(usuarios, cardsSet).setVisible(true);
+                System.out.println(cardsSet);
+                System.out.println(playerAmount);
+                new VentanaRegister(usuarios, cardsSet, playerAmount).setVisible(true);
             }
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(this, "Error!");

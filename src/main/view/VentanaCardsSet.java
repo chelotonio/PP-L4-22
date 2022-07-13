@@ -35,7 +35,7 @@ public class VentanaCardsSet extends JFrame implements ActionListener {
     JList listaGraficaUsuarios;
 
     // Métodos de la clase.
-    public VentanaCardsSet(ArrayList<String> lista, ArrayList<ArrayList> baraja) {
+    public VentanaCardsSet(ArrayList<String> lista, ArrayList<ArrayList> baraja, Integer cantidad) {
 
         // Se establecen las disposiciones y componentes básicos de una ventana.
         super("Generación de cardsSet");
@@ -68,6 +68,7 @@ public class VentanaCardsSet extends JFrame implements ActionListener {
 
         this.usuarios = lista;
         this.cardsSet = baraja;
+        this.playerAmount = cantidad;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -108,7 +109,7 @@ public class VentanaCardsSet extends JFrame implements ActionListener {
             } else if (e.getSource() == botonBack) {
                 dispose();
                 System.out.println(cardsSet);
-                new VentanaConfigurar(usuarios, cardsSet).setVisible(true);
+                new VentanaConfigurar(usuarios, cardsSet, playerAmount).setVisible(true);
             }
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(this, "Error!");

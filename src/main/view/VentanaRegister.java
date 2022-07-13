@@ -28,38 +28,7 @@ public class VentanaRegister extends JFrame implements ActionListener {
     JList listaGraficaUsuarios;
 
     // Métodos de la clase.
-
-    public VentanaRegister() {
-
-        super("Ventana de listas");
-        setSize(200, 200);
-        setLocationRelativeTo(null);
-
-        usuarioLabel = new JLabel("Escriba un nombre de usuario");
-        uTextField = new JTextField(5);
-        agregarUsuario = new JButton("Agregar usuario");
-        botonBack = new JButton("Volver");
-        contenidoJlist = new DefaultListModel();
-        var listaGraficaUsuarios = new JList(contenidoJlist);
-
-        add(usuarioLabel);
-        add(uTextField);
-        add(agregarUsuario);
-        add(botonBack);
-        add(listaGraficaUsuarios);
-
-        setLayout(new FlowLayout());
-
-        agregarUsuario.addActionListener(this);
-        botonBack.addActionListener(this);
-
-        // Se actualiza la lista gráfica con los usuarios ya ingresados anteriormente.
-        for(int i = 0; i < usuarios.size(); i++) {
-            contenidoJlist.addElement(usuarios.get(i));
-        }
-
-    }
-    public VentanaRegister(ArrayList<String> lista, ArrayList<ArrayList> baraja) {
+    public VentanaRegister(ArrayList<String> lista, ArrayList<ArrayList> baraja, Integer cantidad) {
 
         super("Ventana de listas");
         setSize(200, 200);
@@ -93,6 +62,7 @@ public class VentanaRegister extends JFrame implements ActionListener {
 
         this.usuarios = lista;
         this.cardsSet = baraja;
+        this.playerAmount = cantidad;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -111,7 +81,7 @@ public class VentanaRegister extends JFrame implements ActionListener {
 
             } else if (e.getSource() == botonBack) {
                 dispose();
-                new VentanaLobby(usuarios, cardsSet).setVisible(true);
+                new VentanaLobby(usuarios, cardsSet, playerAmount).setVisible(true);
             }
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(this, "Error!");
