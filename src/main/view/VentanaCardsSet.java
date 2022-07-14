@@ -105,7 +105,7 @@ public class VentanaCardsSet extends JFrame implements ActionListener {
                 elementsAbecedary.add("l");
                 elementsAbecedary.add("m");
 
-                cardsSet = dobble.CardsSet(elementsAbecedary, nE, mC, 1234);
+                //cardsSet = dobble.CardsSet(elementsAbecedary, nE, mC, 1234);
                 System.out.println(cardsSet);
 
                 if (cardsSet.contains(numE)) {

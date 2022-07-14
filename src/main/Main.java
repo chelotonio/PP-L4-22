@@ -14,23 +14,38 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
 
+        ArrayList<String> elements = new ArrayList<>();
+        elements.add("a");
+        elements.add("b");
+        elements.add("c");
+        elements.add("d");
+        elements.add("e");
+        elements.add("f");
+        elements.add("g");
+        elements.add("h");
+        elements.add("i");
+        elements.add("j");
+        elements.add("k");
+        elements.add("l");
+        elements.add("m");
+
         ArrayList<String> arreglo = new ArrayList<>();
 
         Dobble dobble = new Dobble();
         Card card = new Card(arreglo);
+        Player player = new Player("alo");
+
+        DobbleGame dobbleGame;
+        dobbleGame = new DobbleGame(dobble, player, "UserVsUser", 231);
+
+        ArrayList<Card> aber = new ArrayList<>();
+        Dobble dobblecs = new Dobble();
+        aber = dobblecs.CardsSet(elements, 3, 4,3234);
+        System.out.println(aber);
+
 
         ArrayList<ArrayList> cardsSetPrueba;
         ArrayList<String> stringCardsSet;
-
-        ArrayList<String> elementsNumbers1 = new ArrayList<>();
-        elementsNumbers1.add("z");
-        elementsNumbers1.add("b");
-        elementsNumbers1.add("c");
-
-        ArrayList<String> elementsNumbers2 = new ArrayList<>();
-        elementsNumbers2.add("z");
-        elementsNumbers2.add("b");
-        elementsNumbers2.add("g");
 
         // Lista global que almacena los usuarios registrados.
         ArrayList<String> usuarios = new ArrayList<>();
