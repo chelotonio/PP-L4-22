@@ -1,6 +1,9 @@
 package main.view;
 
-import main.Dobble;
+import main.model.Card;
+import main.model.Dobble;
+import main.model.DobbleGame;
+import main.model.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,8 +21,9 @@ import java.util.ArrayList;
 public class TurnSet extends JFrame implements ActionListener {
 
     // Atributos de la clase.
-    ArrayList<String> usuarios;
-    ArrayList<ArrayList> cardsSet;
+    ArrayList<Player> usuarios;
+    ArrayList<Card> cardsSet;
+    Dobble setCartas = new Dobble(cardsSet);
     Integer playerAmount = 0;
     Integer turn = 0;
     double tiempoJ1 = 0;
@@ -28,8 +32,10 @@ public class TurnSet extends JFrame implements ActionListener {
     private JLabel label1;
     private JLabel label2;
 
+    private DobbleGame dobbleGame = new DobbleGame(setCartas, playerAmount, "Player vs Player", 4234, usuarios, turn);
+
     // Métodos de la clase.
-    public TurnSet(ArrayList<String> lista, ArrayList<ArrayList> baraja, Integer cantidad, Integer numTurn, Double t1, Double t2) {
+    public TurnSet(ArrayList<Player> lista, ArrayList<Card> baraja, Integer cantidad, Integer numTurn, Double t1, Double t2, DobbleGame dobbleGame) {
 
         // Se establecen las disposiciones y componentes básicos de una ventana.
         super("Generación de cardsSet");
@@ -54,6 +60,8 @@ public class TurnSet extends JFrame implements ActionListener {
         this.turn = numTurn;
         this.tiempoJ1 = t1;
         this.tiempoJ2 = t2;
+        this.dobbleGame = dobbleGame;
+
 
     }
     @Override
@@ -62,7 +70,7 @@ public class TurnSet extends JFrame implements ActionListener {
             if (e.getSource() == sgteTurno) {
                 dispose();
                 this.turn = turn + 1;
-                new UserVsUser(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
+                new UserVsUser(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2, dobbleGame).setVisible(true);
             }
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(this, "Error!");

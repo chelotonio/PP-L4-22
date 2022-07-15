@@ -1,5 +1,9 @@
 package main;
 
+import main.model.Card;
+import main.model.Dobble;
+import main.model.DobbleGame;
+import main.model.Player;
 import main.view.VentanaLobby;
 
 import java.util.ArrayList;
@@ -15,6 +19,7 @@ public class Main {
     public static void main(String[] args) {
 
         ArrayList<String> elements = new ArrayList<>();
+
         elements.add("a");
         elements.add("b");
         elements.add("c");
@@ -31,31 +36,36 @@ public class Main {
 
         ArrayList<String> arreglo = new ArrayList<>();
 
-        Dobble dobble = new Dobble();
+        ArrayList<Card> baraja = new ArrayList<>();
+
+        // Se inicializa set Dobble.
+        Dobble dobble = new Dobble(baraja);
+        Dobble setCartas;
+
+        baraja = dobble.CardsSet(elements, 3, 4,3234);
+        System.out.println(baraja);
+
         Card card = new Card(arreglo);
-        Player player = new Player("alo");
+        Player player = new Player("Pedro");
+        setCartas = new Dobble(baraja);
 
         DobbleGame dobbleGame;
-        dobbleGame = new DobbleGame(dobble, player, "UserVsUser", 231);
-
-        ArrayList<Card> aber = new ArrayList<>();
-        Dobble dobblecs = new Dobble();
-        aber = dobblecs.CardsSet(elements, 3, 4,3234);
-        System.out.println(aber);
-
 
         ArrayList<ArrayList> cardsSetPrueba;
         ArrayList<String> stringCardsSet;
 
         // Lista global que almacena los usuarios registrados.
-        ArrayList<String> usuarios = new ArrayList<>();
-        ArrayList<ArrayList> cardsSet = new ArrayList<>();
+        ArrayList<Player> usuarios = new ArrayList<>();
+        ArrayList<Card> cardsSet = new ArrayList<>();
         Integer playerAmount = 0;
         double tiempoJ1 = 0;
         double tiempoJ2 = 0;
         Integer turns = 1;
 
-        new VentanaLobby(usuarios, cardsSet, playerAmount, turns, tiempoJ1, tiempoJ2).setVisible(true);
+        dobbleGame = new DobbleGame(setCartas, playerAmount, "UserVsUser", 231, usuarios, turns);
+        System.out.println(dobbleGame);
+
+        new VentanaLobby(usuarios, cardsSet, playerAmount, turns, tiempoJ1, tiempoJ2, dobbleGame).setVisible(true);
 
     }
 }

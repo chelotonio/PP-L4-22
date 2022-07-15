@@ -1,4 +1,4 @@
-package main;
+package main.model;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -33,6 +33,12 @@ public class Card {
         this.carta.add(string);
         Card card = new Card(carta);
         return card;
+    }
+
+    public ArrayList<String> cardToString(Card card) {
+        ArrayList<String> cardString = new ArrayList<>();
+        cardString = card.getCarta();
+        return cardString;
     }
 
 }

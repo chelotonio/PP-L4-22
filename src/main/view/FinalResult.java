@@ -1,5 +1,10 @@
 package main.view;
 
+import main.model.Card;
+import main.model.Dobble;
+import main.model.DobbleGame;
+import main.model.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,19 +21,22 @@ import java.util.ArrayList;
 public class FinalResult extends JFrame implements ActionListener {
 
     // Atributos de la clase.
-    ArrayList<String> usuarios;
-    ArrayList<ArrayList> cardsSet;
+    ArrayList<Player> usuarios;
+    ArrayList<Card> cardsSet;
+    Dobble setCartas = new Dobble(cardsSet);
     Integer playerAmount = 0;
     Integer turn = 0;
     double tiempoJ1 = 0;
     double tiempoJ2 = 0;
+
+    private DobbleGame dobbleGame = new DobbleGame(setCartas, playerAmount, "Player vs Player", 4234, usuarios, turn);
     private JButton backMP;
     private JLabel label1;
     private JLabel label2;
     DefaultListModel contenidoJlist;
 
     // Métodos de la clase.
-    public FinalResult(ArrayList<String> lista, ArrayList<ArrayList> baraja, Integer cantidad, Integer numTurn, Double t1, Double t2) {
+    public FinalResult(ArrayList<Player> lista, ArrayList<Card> baraja, Integer cantidad, Integer numTurn, Double t1, Double t2, DobbleGame dobbleGame) {
 
         // Se establecen las disposiciones y componentes básicos de una ventana.
         super("Resultado final");
@@ -63,13 +71,15 @@ public class FinalResult extends JFrame implements ActionListener {
         this.cardsSet = baraja;
         this.playerAmount = cantidad;
         this.turn = numTurn;
+        this.dobbleGame = dobbleGame;
+
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
             if (e.getSource() == backMP) {
                 dispose();
-                new VentanaLobby(usuarios, cardsSet, playerAmount, 1, 0.0, 0.0).setVisible(true);
+                new VentanaLobby(usuarios, cardsSet, playerAmount, 1, 0.0, 0.0, dobbleGame).setVisible(true);
             }
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(this, "Error!");

@@ -1,5 +1,10 @@
 package main.view;
 
+import main.model.Card;
+import main.model.Dobble;
+import main.model.DobbleGame;
+import main.model.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,12 +20,15 @@ import java.util.ArrayList;
 
 public class VentanaConfigurar extends JFrame implements ActionListener {
 
-    ArrayList<String> usuarios;
-    ArrayList<ArrayList> cardsSet;
+    ArrayList<Player> usuarios;
+    ArrayList<Card> cardsSet;
+    Dobble setCartas = new Dobble(cardsSet);
     Integer playerAmount = 0;
     Integer turn = 0;
     double tiempoJ1 = 0;
     double tiempoJ2 = 0;
+
+    private DobbleGame dobbleGame = new DobbleGame(setCartas, playerAmount, "Player vs Player", 4234, usuarios, turn);
     private JButton boton1;
     private JButton boton3;
     private JButton boton4;
@@ -29,7 +37,7 @@ public class VentanaConfigurar extends JFrame implements ActionListener {
     private JTextField casillaPlayers;
 
     // Métodos de la clase.
-    public VentanaConfigurar(ArrayList<String> lista, ArrayList<ArrayList> baraja, Integer cantidad, Integer numTurn, Double t1, Double t2) {
+    public VentanaConfigurar(ArrayList<Player> lista, ArrayList<Card> baraja, Integer cantidad, Integer numTurn, Double t1, Double t2, DobbleGame dobbleGame) {
 
         // Se establecen las disposiciones y componentes básicos de una ventana.
         super("Construir partida");
@@ -70,6 +78,8 @@ public class VentanaConfigurar extends JFrame implements ActionListener {
         this.turn = numTurn;
         this.tiempoJ1 = t1;
         this.tiempoJ2 = t2;
+        this.dobbleGame = dobbleGame;
+
     }
 
     @Override
@@ -78,7 +88,7 @@ public class VentanaConfigurar extends JFrame implements ActionListener {
             if(evento.getSource() == boton1) {
                 // Se abre ventana que permite crear cardsSet ingresando NumE, MaxC, escoger simbolos, revolver baraja.
                 dispose();
-                new VentanaCardsSet(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
+                new VentanaCardsSet(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2, dobbleGame).setVisible(true);
             } else if(evento.getSource() == boton3) {
                 String cJ = casillaPlayers.getText();
                 int cantPlayers = Integer.parseInt(cJ);
@@ -87,7 +97,7 @@ public class VentanaConfigurar extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, message);
             } else if(evento.getSource() == boton4) {
                 dispose();
-                new VentanaLobby(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
+                new VentanaLobby(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2, dobbleGame).setVisible(true);
             }
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(this, "Error!");

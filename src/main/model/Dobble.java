@@ -1,44 +1,50 @@
-package main;
+package main.model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Dobble {
 
-    private ArrayList<String> carta = new ArrayList<>();
+    private Card carta;
+    private ArrayList<Card> cartas;
+
+    public Dobble(ArrayList<Card> cartas) {
+        this.cartas = cartas;
+    }
 
     public ArrayList<Card> CardsSet(ArrayList<String> Elements, int NumE, int MaxC, int Seed) {
 
         ArrayList<Card> cardsSet = new ArrayList<>();
         ArrayList<String> card = new ArrayList<>();
-        Card carta = new Card(card);
+        Card cartaAux = new Card(card);
 
         // Ciclo que genera la primera carta.
         for (int i = 1; i <= NumE; i++) {
-            carta.agregarCarta(Elements.get(i - 1));
+            cartaAux.agregarCarta(Elements.get(i - 1));
         }
-        cardsSet.add(carta);
+        cardsSet.add(cartaAux);
 
         // Doble ciclo que genera las primeras n cartas.
         for (int j = 1; j <= NumE - 1; j++) {
             card = new ArrayList<String>();
-            carta = new Card(card);
-            carta.agregarCarta(Elements.get(0));
+            cartaAux = new Card(card);
+            cartaAux.agregarCarta(Elements.get(0));
             for (int k = 1; k <= NumE - 1; k++) {
-                carta.agregarCarta(Elements.get(((NumE - 1) * j + ( k + 1 )) - 1));
+                cartaAux.agregarCarta(Elements.get(((NumE - 1) * j + ( k + 1 )) - 1));
             }
-            cardsSet.add(carta);
+            cardsSet.add(cartaAux);
         }
 
         // Triple ciclo que genera las últimas n^2 cartas.
         for (int i = 1; i <= NumE - 1; i++) {
             for (int j = 1; j <= NumE - 1; j++) {
                 card = new ArrayList<String>();
-                carta = new Card(card);
-                carta.agregarCarta(Elements.get(i));
+                cartaAux = new Card(card);
+                cartaAux.agregarCarta(Elements.get(i));
                 for (int k = 1; k <= (NumE - 1); k++) {
-                    carta.agregarCarta(Elements.get(((NumE - 1) + 2 + (NumE - 1) * (k-1) + (((i-1) * (k-1) + j - 1)%(NumE - 1))) - 1));
+                    cartaAux.agregarCarta(Elements.get(((NumE - 1) + 2 + (NumE - 1) * (k-1) + (((i-1) * (k-1) + j - 1)%(NumE - 1))) - 1));
                 }
-                cardsSet.add(carta);
+                cardsSet.add(cartaAux);
             }
         }
 
@@ -53,6 +59,29 @@ public class Dobble {
         return cardsSet;
     }
 
+    public ArrayList<Card> getCartas() {
+        return cartas;
+    }
+
+    public void setCartas(ArrayList<Card> cartas) {
+        this.cartas = cartas;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Dobble dobble = (Dobble) o;
+        return Objects.equals(getCartas(), dobble.getCartas());
+    }
+
+    @Override
+    public String toString() {
+        return "Dobble{" +
+                "cartas=" + cartas +
+                '}';
+    }
+
     public String enComun(ArrayList<String> c1, ArrayList<String> c2) {
 
         for(int i = 0; i < c1.size(); i++) {
@@ -65,14 +94,15 @@ public class Dobble {
         return "s";
     }
 
-    public ArrayList<String> cardsSetToString(ArrayList<ArrayList> cardsSet) {
+    public ArrayList<String> cardsSetToString(ArrayList<Card> cardsSet) {
 
         ArrayList<String> stringCardsSet = new ArrayList<>();
 
         for (int i = 0; i < cardsSet.size(); i++) {
-            carta = cardsSet.get(i);
+            this.carta = cardsSet.get(i);
+            ArrayList<String> cartaString = carta.getCarta();
             String str = "";
-            for (String elemento : carta) {
+            for (String elemento : cartaString) {
                 str+= elemento+",";
             }
             stringCardsSet.add(str);

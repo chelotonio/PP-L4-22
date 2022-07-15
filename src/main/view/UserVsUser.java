@@ -1,6 +1,9 @@
 package main.view;
 
-import main.Dobble;
+import main.model.Card;
+import main.model.Dobble;
+import main.model.DobbleGame;
+import main.model.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,17 +21,20 @@ import java.util.ArrayList;
 public class UserVsUser extends JFrame implements ActionListener {
 
     // Atributos de la clase.
-    ArrayList<String> usuarios;
-    ArrayList<ArrayList> cardsSet;
+    ArrayList<Player> usuarios;
+    ArrayList<Card> cardsSet;
     Integer playerAmount = 0;
     Integer turn = 0;
-    Dobble dobble = new Dobble();
+    Dobble dobble = new Dobble(cardsSet);
+    Dobble setCartas = new Dobble(cardsSet);
     ArrayList<String> barajaString;
     String elementoCorrecto;
     double tiempoJ1 = 0;
     double tiempoJ2 = 0;
     Integer whoTurn = 1;
     long inicioEjecucion = System.nanoTime();
+
+    private DobbleGame dobbleGame;
     private JTextField eComun;
     private JButton ingresarElemento;
     private JButton botonBack;
@@ -38,7 +44,7 @@ public class UserVsUser extends JFrame implements ActionListener {
     DefaultListModel muestraParC;
 
     // Métodos de la clase.
-    public UserVsUser(ArrayList<String> lista, ArrayList<ArrayList> baraja, Integer cantidad, Integer numTurn, Double t1, Double t2) {
+    public UserVsUser(ArrayList<Player> lista, ArrayList<Card> baraja, Integer cantidad, Integer numTurn, Double t1, Double t2, DobbleGame dobbleGame) {
 
         super("User vs User");
         setSize(400, 400);
@@ -60,15 +66,19 @@ public class UserVsUser extends JFrame implements ActionListener {
         this.playerAmount = cantidad;
         this.tiempoJ1 = t1;
         this.tiempoJ2 = t2;
-        //
+        this.dobbleGame = dobbleGame;
+
         barajaString = dobble.cardsSetToString(cardsSet);
         // Se randomiza la carta a escoger con un valor en el rango de las cartas.
         Integer n = cardsSet.size() - 2;
         Integer a = (int) Math.round(Math.random()*(n-0+1));
         Integer b = (int) Math.round(Math.random()*(n-0+1));
 
-        ArrayList<String> cc1 = cardsSet.get(a);
-        ArrayList<String> cc2 = cardsSet.get(b);
+        Card ccc1 = cardsSet.get(a);
+        Card ccc2 = cardsSet.get(b);
+
+        ArrayList<String> cc1 = ccc1.getCarta();
+        ArrayList<String> cc2 = ccc2.getCarta();
 
         String c1 = barajaString.get(a);
         String c2 = barajaString.get(b);
@@ -110,16 +120,16 @@ public class UserVsUser extends JFrame implements ActionListener {
                     } else {
                         tiempoJ2 = tiempoJ2 + (finEjecución - inicioEjecucion) * Math.pow(10, -9);
                     }
-                    System.out.println(turn);
+                    System.out.println(dobbleGame.getTurn());
                     // Si se completaron todos los turnos.
-                    if (turn == playerAmount * 3) {
+                    if (turn == playerAmount * 2) {
                         System.out.println("tiempo total j1:"+tiempoJ1);
                         System.out.println("tiempo total j2:"+tiempoJ2);
                         dispose();
-                        new FinalResult(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
+                        new FinalResult(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2, dobbleGame).setVisible(true);
                     } else {
                         dispose();
-                        new TurnSet(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
+                        new TurnSet(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2, dobbleGame).setVisible(true);
                     }
                 } else {
                     JOptionPane.showMessageDialog(this, "El elemento ingresado no es correcto, intente nuevamente");
@@ -127,7 +137,7 @@ public class UserVsUser extends JFrame implements ActionListener {
 
             } else if (e.getSource() == botonBack) {
                 dispose();
-                new VentanaLobby(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
+                new VentanaLobby(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2, dobbleGame).setVisible(true);
             }
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(this, "Error!");

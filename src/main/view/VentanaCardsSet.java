@@ -1,6 +1,9 @@
 package main.view;
 
-import main.Dobble;
+import main.model.Card;
+import main.model.Dobble;
+import main.model.DobbleGame;
+import main.model.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,13 +21,16 @@ import java.util.ArrayList;
 public class VentanaCardsSet extends JFrame implements ActionListener {
 
     // Atributos de la clase.
-    ArrayList<String> usuarios;
-    ArrayList<ArrayList> cardsSet;
+    ArrayList<Player> usuarios;
+    ArrayList<Card> cardsSet;
+    Dobble setCartas = new Dobble(cardsSet);
     Integer playerAmount = 0;
     Integer turn = 0;
     double tiempoJ1 = 0;
     double tiempoJ2 = 0;
-    Dobble dobble = new Dobble();
+    Dobble dobble = new Dobble(cardsSet);
+
+    private DobbleGame dobbleGame = new DobbleGame(setCartas, playerAmount, "Player vs Player", 4234, usuarios, turn);
     private JTextField numEtf;
     private JTextField maxCtf;
     private JButton crearBaraja;
@@ -37,7 +43,7 @@ public class VentanaCardsSet extends JFrame implements ActionListener {
     JList listaGraficaUsuarios;
 
     // Métodos de la clase.
-    public VentanaCardsSet(ArrayList<String> lista, ArrayList<ArrayList> baraja, Integer cantidad, Integer numTurn, Double t1, Double t2) {
+    public VentanaCardsSet(ArrayList<Player> lista, ArrayList<Card> baraja, Integer cantidad, Integer numTurn, Double t1, Double t2, DobbleGame dobbleGame) {
 
         // Se establecen las disposiciones y componentes básicos de una ventana.
         super("Generación de cardsSet");
@@ -74,6 +80,8 @@ public class VentanaCardsSet extends JFrame implements ActionListener {
         this.turn = numTurn;
         this.tiempoJ1 = t1;
         this.tiempoJ2 = t2;
+        this.dobbleGame = dobbleGame;
+
 
 
     }
@@ -105,7 +113,7 @@ public class VentanaCardsSet extends JFrame implements ActionListener {
                 elementsAbecedary.add("l");
                 elementsAbecedary.add("m");
 
-                //cardsSet = dobble.CardsSet(elementsAbecedary, nE, mC, 1234);
+                cardsSet = dobble.CardsSet(elementsAbecedary, nE, mC, 1234);
                 System.out.println(cardsSet);
 
                 if (cardsSet.contains(numE)) {
@@ -116,7 +124,7 @@ public class VentanaCardsSet extends JFrame implements ActionListener {
 
             } else if (e.getSource() == botonBack) {
                 dispose();
-                new VentanaConfigurar(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
+                new VentanaConfigurar(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2, dobbleGame).setVisible(true);
             }
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(this, "Error!");

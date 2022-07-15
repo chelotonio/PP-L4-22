@@ -1,5 +1,10 @@
 package main.view;
 
+import main.model.Card;
+import main.model.Dobble;
+import main.model.DobbleGame;
+import main.model.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,8 +21,9 @@ import java.util.ArrayList;
 public class VentanaRegister extends JFrame implements ActionListener {
 
     // Atributos de la clase.
-    ArrayList<String> usuarios;
-    ArrayList<ArrayList> cardsSet;
+    ArrayList<Player> usuarios;
+    ArrayList<Card> cardsSet;
+    Dobble setCartas = new Dobble(cardsSet);
     Integer playerAmount = 0;
     Integer turn = 0;
     double tiempoJ1 = 0;
@@ -28,12 +34,14 @@ public class VentanaRegister extends JFrame implements ActionListener {
     private JButton agregarUsuario;
     private JButton botonBack;
     private JLabel usuarioLabel;
+
+    private DobbleGame dobbleGame = new DobbleGame(setCartas, playerAmount, "Player vs Player", 4234, usuarios, turn);
     DefaultListModel contenidoJlist;
 
     JList listaGraficaUsuarios;
 
     // Métodos de la clase.
-    public VentanaRegister(ArrayList<String> lista, ArrayList<ArrayList> baraja, Integer cantidad, Integer numTurn, Double t1, Double t2) {
+    public VentanaRegister(ArrayList<Player> lista, ArrayList<Card> baraja, Integer cantidad, Integer numTurn, Double t1, Double t2, DobbleGame dobbleGame) {
 
         super("Ventana de listas");
         setSize(200, 200);
@@ -71,6 +79,8 @@ public class VentanaRegister extends JFrame implements ActionListener {
         this.turn = numTurn;
         this.tiempoJ1 = t1;
         this.tiempoJ2 = t2;
+        this.dobbleGame = dobbleGame;
+
 
     }
 
@@ -79,11 +89,14 @@ public class VentanaRegister extends JFrame implements ActionListener {
         try {
             if (e.getSource() == agregarUsuario) {
                 var nombre = uTextField.getText();
-                if (usuarios.contains(nombre)) {
+                Player player = new Player(nombre);
+
+                if (usuarios.contains(player)) {
                     JOptionPane.showMessageDialog(this, "El usuario ingresado ya se encuentra registrado");
                 } else {
                     // Se agrega a estructura de datos (List)
-                    usuarios.add(nombre);
+
+                    usuarios.add(player);
                     // Se agrega a elemento grafico (JList)
                     contenidoJlist.addElement(nombre);
                     JOptionPane.showMessageDialog(this, "Usuario ingresado con éxito");
@@ -91,7 +104,7 @@ public class VentanaRegister extends JFrame implements ActionListener {
 
             } else if (e.getSource() == botonBack) {
                 dispose();
-                new VentanaLobby(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
+                new VentanaLobby(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2, dobbleGame).setVisible(true);
             }
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(this, "Error!");

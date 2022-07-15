@@ -1,10 +1,11 @@
 package main.view;
 
-import main.Dobble;
-import main.Player;
+import main.model.Card;
+import main.model.Dobble;
+import main.model.DobbleGame;
+import main.model.Player;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.DefaultMenuLayout;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,10 +21,12 @@ import java.util.ArrayList;
 public class VentanaLobby extends JFrame implements ActionListener {
 
     // Atributos de la clase.
-    ArrayList<String> usuarios;
-    ArrayList<ArrayList> cardsSet;
+    ArrayList<Player> usuarios;
+    ArrayList<Card> cardsSet;
+    Dobble setCartas = new Dobble(cardsSet);
     Integer playerAmount = 0;
     Integer turn = 0;
+    private DobbleGame dobbleGame;
     double tiempoJ1 = 0;
     double tiempoJ2 = 0;
     private JButton boton1;
@@ -32,7 +35,7 @@ public class VentanaLobby extends JFrame implements ActionListener {
     private JLabel lobbyLabel;
 
     // Métodos de la clase.
-    public VentanaLobby(ArrayList<String> lista, ArrayList<ArrayList> baraja, Integer cantidad, Integer numTurn, Double t1, Double t2) {
+    public VentanaLobby(ArrayList<Player> lista, ArrayList<Card> baraja, Integer cantidad, Integer numTurn, Double t1, Double t2, DobbleGame dobbleGame) {
 
         // Se establecen las disposiciones y componentes básicos de una ventana.
         super("Menú Principal");
@@ -69,6 +72,8 @@ public class VentanaLobby extends JFrame implements ActionListener {
         this.turn = numTurn;
         this.tiempoJ1 = t1;
         this.tiempoJ2 = t2;
+        this.dobbleGame = dobbleGame;
+
     }
 
     @Override
@@ -76,13 +81,13 @@ public class VentanaLobby extends JFrame implements ActionListener {
         try {
             if(evento.getSource() == boton1) {
                 dispose();
-                new UserVsUser(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
+                new UserVsUser(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2, dobbleGame).setVisible(true);
             } else if(evento.getSource() == boton2) {
                 dispose();
-                new VentanaConfigurar(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
+                new VentanaConfigurar(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2, dobbleGame).setVisible(true);
             } else if(evento.getSource() == boton3) {
                 dispose();
-                new VentanaRegister(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2).setVisible(true);
+                new VentanaRegister(usuarios, cardsSet, playerAmount, turn, tiempoJ1, tiempoJ2, dobbleGame).setVisible(true);
             }
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(this, "Error!");
